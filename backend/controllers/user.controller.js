@@ -42,7 +42,12 @@ const loginUser = async (req, res) => {
     return res.status(200).json({ user, token });
 }
 
+const getProfile = async (req, res) => {
+    return res.status(200).json(req.user);
+}
+
 export{
     registerUser,
-    loginUser
+    loginUser,
+    getProfile
 }
