@@ -28,6 +28,13 @@ const userSchema = new mongoose.Schema({
     
 });
 
+userSchema.pre("save",async function(next){
+    if(this.isModified("password")){
+        this.password = await bcrypt.hash(this.password,8)
+        next()
+    }
+    next()
+})
 userSchema.methods.generateAuthToken = async function () {
     const token = jwt.sign({ _id: this._id }, process.env.JWT_SECRET);
     return token;
@@ -37,8 +44,5 @@ userSchema.methods.comparePassword = async function (password) {
     return await bcrypt.compare(password, this.password);
 }
 
-userSchema.static.hashPassword = async function (password) {
-    return await bcrypt.hash(password, 10);
-}
 
 export const User = mongoose.model("User", userSchema);
