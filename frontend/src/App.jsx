@@ -8,6 +8,7 @@ import { userDataContext } from "./context/userContext"
 import Landing from "./pages/Landing"
 import ProtectedRouteWrapper from "./pages/ProtectedRouteWrapper"
 import Home from "./pages/Home"
+import LogoutUser from "./pages/LogoutUser"
 
 
 
@@ -25,6 +26,7 @@ const App = () => {
         <Route path="/signup" element={<SignUpPage />} />
         <Route path="/driver-login" element={<DriverLogin />} />
         <Route path="/driver-signup" element={<DriverSignUp />} />
+        <Route path="/user/logout" element={<ProtectedRouteWrapper><LogoutUser /> </ProtectedRouteWrapper>} />
       </Routes>
     </div>
   )

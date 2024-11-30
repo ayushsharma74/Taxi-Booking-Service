@@ -17,7 +17,7 @@ router.post("/login", [
 ], loginUser)
 
 router.get("/profile", authMiddleware,  getProfile)
-router.post("/logout", authMiddleware, logoutUser)
+router.get("/logout", authMiddleware, logoutUser)
 
 
 export default router
