@@ -46,8 +46,14 @@ const getProfile = async (req, res) => {
     return res.status(200).json(req.user);
 }
 
+const logoutUser = async (req, res) => {
+    res.clearCookie("jwt");
+    return res.status(200).json({ message: "Logout successful" });
+}
+
 export{
     registerUser,
     loginUser,
-    getProfile
+    getProfile,
+    logoutUser
 }
