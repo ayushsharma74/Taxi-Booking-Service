@@ -4,8 +4,16 @@ import LoginPage from "./pages/LoginPage"
 import SignUpPage from "./pages/SignUpPage"
 import DriverLogin from "./pages/DriverLogin"
 import DriverSignUp from "./pages/DriverSignUp"
+import { useContext } from "react"
+import { userDataContext } from "./context/userContext"
+
+
 
 const App = () => {
+  const ans = useContext(userDataContext)
+  console.log(ans);
+  
+  
   return (
     <div>
       <Routes>
