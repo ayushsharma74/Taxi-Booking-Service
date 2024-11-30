@@ -1,5 +1,6 @@
 import { Driver } from "../models/driver.model.js";
 import { User } from "../models/user.model.js";
+import { BlacklistToken } from "../models/blacklistToken.model.js";
 import jwt from "jsonwebtoken";
 
 export const authMiddleware = async (req, res, next) => {
@@ -11,6 +12,11 @@ export const authMiddleware = async (req, res, next) => {
             return res.status(401).json({ message: "Unauthorized" });
         }
 
+        const blacklistedToken = await BlacklistToken.findOne({ token });
+        if (blacklistedToken) {
+            return res.status(401).json({ message: "Unauthorized" });
+        }
+        
         const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
         const user = await User.findById(decodedToken._id);
 

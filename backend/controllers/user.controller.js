@@ -1,3 +1,4 @@
+import { BlacklistToken } from "../models/blacklistToken.model.js";
 import { User } from "../models/user.model.js"
 import { createUser } from "../services/createUser.service.js"
 import {validationResult} from "express-validator"
@@ -47,7 +48,9 @@ const getProfile = async (req, res) => {
 }
 
 const logoutUser = async (req, res) => {
+    const token = req?.headers?.authorization?.split(" ")[1] || req?.cookies?.jwt;
     res.clearCookie("jwt");
+    BlacklistToken.create({ token });
     return res.status(200).json({ message: "Logout successful" });
 }
 

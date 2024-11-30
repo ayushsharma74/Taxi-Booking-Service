@@ -1,3 +1,4 @@
+import { BlacklistToken } from "../models/blacklistToken.model.js";
 import { Driver } from "../models/driver.model.js";
 import { createDriver } from "../services/createDriver.service.js";
 
@@ -42,3 +43,13 @@ export const loginDriver = async (req, res) => {
     return res.status(200).json({ driver, token });
 }
 
+export const logoutDriver = async (req, res) => {
+    const token = req?.headers?.authorization?.split(" ")[1] || req?.cookies?.jwt;
+    res.clearCookie("jwt");
+    BlacklistToken.create({ token });
+    return res.status(200).json({ message: "Logout successful" });
+}
+
+export const getProfile = async (req, res) => {
+    return res.status(200).json(req.driver);
+}
