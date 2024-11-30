@@ -1,11 +1,13 @@
 import { Route, Routes } from "react-router-dom"
-import Home from "./pages/Home"
 import LoginPage from "./pages/LoginPage"
 import SignUpPage from "./pages/SignUpPage"
 import DriverLogin from "./pages/DriverLogin"
 import DriverSignUp from "./pages/DriverSignUp"
 import { useContext } from "react"
 import { userDataContext } from "./context/userContext"
+import Landing from "./pages/Landing"
+import ProtectedRouteWrapper from "./pages/ProtectedRouteWrapper"
+import Home from "./pages/Home"
 
 
 
@@ -17,7 +19,8 @@ const App = () => {
   return (
     <div>
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Landing />} />
+        <Route path="/home" element={<ProtectedRouteWrapper><Home /></ProtectedRouteWrapper>} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignUpPage />} />
         <Route path="/driver-login" element={<DriverLogin />} />
