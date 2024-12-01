@@ -1,21 +1,22 @@
-import React from 'react'
 import axios from 'axios'
+import { useNavigate } from 'react-router-dom';
 
 const LogoutUser = () => {
     const token = localStorage.getItem("token");
-    console.log(token);
-    
-//TODO: FIX THIS PIECE OF SHIT
+    const navigate = useNavigate();
     const logoutUser = async () => {
-        const response = axios.get(`${import.meta.env.VITE_BASE_URL}/user/logout`, {
-            Headers: {
+        console.log(token);
+        const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/user/logout`, {
+            headers: {
                 Authorization: `Bearer ${token}`
-            }
-        }).then((res) => {
-            console.log(res.data);
+            },
+            withCredentials: true,
+        })
+
+        if (response.status === 200) {
             localStorage.removeItem("token");
-        }).catch((err) => console.log(err));
-        console.log(response.data);
+            navigate("/login");
+        }
     }
 
   return (
